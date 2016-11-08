@@ -7,22 +7,19 @@ import time
 from ILAMB.Variable import Variable
 
 mask_fpath = './mask12.npy'
-NO_DATA = [-999.0, -999.0]
+NO_DATA = [-9999.0, -9999.0]
 lsmk = np.load(mask_fpath)
 
 fdir = './outputs_flt'
 files = glob.glob1(fdir, '*.flt')
-fpath = fdir + os.sep + files[0]
-varname = files[0].split('.')[0]
-caete_name = fdir + os.sep + varname + '_' + 'annual_cycle_mean_CAETE.nc'
-nc_filename = caete_name
 
 
 def flt_attrs():
-    return {'wsoil' : ['soil_water_fraction','1'],
-            'et'    : ['evapotranpiration','kg/m^2/s'],
-            'runoff': ['runoff','m^3/s']}
-
+    return {'header': ['long_name',           'unit',        'standart_name'],
+            
+            'wsoil' : ['soil_water_fraction', '1',           'wsoil'],
+            'et'    : ['evapotranpiration',   'kg m-2 s-1',  'et'],
+            'runoff': ['runoff',              'm-3 s-1',     'runoff']}
 
 
 def read_raster(fpath):
@@ -36,16 +33,17 @@ def read_raster(fpath):
     
     ds = gdal.Open(fpath)
     raw_data = ds.ReadAsArray()
-    ds = None    
-    return np.ma.masked_array(raw_data, mask= lsmk)    
-    
-    
+    ds = None
+    np.place(arr=raw_data, mask=lsmk, vals=NO_DATA)
+    return raw_data
+
+
 def write_CAETE_output(nc_filename, arr, var):
 
     t, la, lo,  = arr.shape 
     
     # create netcdf file
-    rootgrp = dt(nc_filename, mode='w', format='NETCDF4')
+    rootgrp = dt(nc_filename, mode='w', format='NETCDF4_CLASSIC')
     
     #dimensions
     rootgrp.createDimension("time", None)
@@ -54,12 +52,13 @@ def write_CAETE_output(nc_filename, arr, var):
     
     
     #variables
-    time      = rootgrp.createVariable("time",np.float32,("time",))
-    latitude  = rootgrp.createVariable("latitude",np.float32,("latitude",))
-    longitude = rootgrp.createVariable("longitude",np.float32,("longitude",))
-    var_       = rootgrp.createVariable('annual_cycle_mean_of_' + str(var),
-                                  np.float32,("time","latitude","longitude",))
-    
+    time      = rootgrp.createVariable(varname="time", datatype=np.float32, dimensions=("time",))
+    latitude  = rootgrp.createVariable(varname="latitude", datatype=np.float32,dimensions=("latitude",))
+    longitude = rootgrp.createVariable(varname="longitude", datatype=np.float32, dimensions=("longitude",))
+    var_      = rootgrp.createVariable(varname = 'annual_cycle_mean_of_' + str(flt_attrs()[var][2]),
+                                       datatype=np.float32, dimensions=("time","latitude","longitude",),
+                                       fill_value=NO_DATA[0])
+
     
     #attributes
     ## rootgrp
@@ -67,7 +66,7 @@ def write_CAETE_output(nc_filename, arr, var):
     rootgrp.source = "CAETE model outputs"
     
     ## time
-    time.units = "days since 1850-01-01 00:00:00.0"
+    time.units = "days since 1995-01-01 00:00:00.0"
     time.calendar = "noleap"
     time.axis='T'
 
@@ -84,8 +83,10 @@ def write_CAETE_output(nc_filename, arr, var):
     longitude.axis = 'X'
     
     ## var
+    var_.long_name=flt_attrs()[var][0]
     var_.units = flt_attrs()[var][1]
-    var_._MissingValue = NO_DATA
+    var_.standard_name=flt_attrs()[var][2]
+    var_.missing_value=NO_DATA[0]
     
     ## WRITING DATA
     times_fill = np.array([15.5, 45., 74.5, 105., 135.5, 166., 
