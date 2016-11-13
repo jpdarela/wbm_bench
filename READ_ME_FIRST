@@ -1,0 +1,25 @@
+Dados para a avaliação (benchmarking) do modelo de balanço hídrico do CAETE
+
+# DADOS
+
+1 - Evapotranspiração (CAETE%evaptr)- std varname = et
+       - GLEAM <-- sensoriamento remoto; dos dados do ILAMB fornecidos pelo MU.
+                   tá na pasta /DADOS/et.tar.gz do ILAMB-Mu
+       - MODIS <-- idem GLEAM
+        
+        ### tranformei os dados para medias mensais - 1981-2010 para GLEAM
+            e 2000-2010 para MODIS
+
+2 - Soil water content (CAETE%wsoil)- std varname = mrso
+       - soilw <--http://www.cpc.ncep.noaa.gov/soilmst/leaky_glb.htm 
+                - https://data.noaa.gov/dataset/climate-prediction-center-cpc-global-monthly-leaky-bucket-soil-moisture-analysis
+                - https://data.noaa.gov/harvest/b59980f6-33bc-4f53-95bd-24f3a83c1a0b        
+                  results from a water balance model - Leaky bucket model
+
+3 - Runnof (CAETE%runom) std varname = mrro 
+       - runoff <-- CPC - from the leaky bucket model as item 2
+       - NCEP-NCAR <-- Reanalysis 1 - 1981-2010
+       - UNH-GRDC Composite Runoff Fields <-- http://www.compositerunoff.sr.unh.edu/
+
+
+
