@@ -7,8 +7,8 @@ Dados para a avaliação (benchmarking) do modelo de balanço hídrico do CAETE
                    tá na pasta /DADOS/et.tar.gz do ILAMB-Mu
        - MODIS <-- idem GLEAM
         
-        ### tranformei os dados para medias mensais - 1981-2010 para GLEAM
-            e 2000-2010 para MODIS
+        ### transformei os dados para medias mensais - 1981-2010 para GLEAM
+            e 2000-2010 para MODIS usando o modudos python: ILAMB ,gdal, netCDF4
 
 2 - Soil water content (CAETE%wsoil)- std varname = mrso
        - soilw <--http://www.cpc.ncep.noaa.gov/soilmst/leaky_glb.htm 
