@@ -17,8 +17,6 @@ Dados para a avaliação (benchmarking) do modelo de balanço hídrico do CAETE
                   results from a water balance model - Leaky bucket model
 
 3 - Runnof (CAETE%runom) std varname = mrro 
-       - runoff <-- CPC - from the leaky bucket model as item 2
-       - NCEP-NCAR <-- Reanalysis 1 - 1981-2010
        - UNH-GRDC Composite Runoff Fields <-- http://www.compositerunoff.sr.unh.edu/
 
 
