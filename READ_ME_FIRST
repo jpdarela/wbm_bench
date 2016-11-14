@@ -18,6 +18,7 @@ Dados para a avaliação (benchmarking) do modelo de balanço hídrico do CAETE
 
 3 - Runnof (CAETE%runom) std varname = mrro 
        - UNH-GRDC Composite Runoff Fields <-- http://www.compositerunoff.sr.unh.edu/
+        ## tranformei os dados originais em netCDF4 
 
 
 
