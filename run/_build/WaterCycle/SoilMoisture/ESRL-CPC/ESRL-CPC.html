@@ -29,7 +29,8 @@
         data.addColumn('number','<span title="Interannual Variability Score ">Interannual Variability Score  [1]</span>');
         data.addColumn('number','<span title="Overall Score ">Overall Score  [1]</span>');
         data.addRows([
-          ['Benchmark','<a href="ESRL-CPC_Benchmark.nc" download>[-]</a>',254.058, null, null, null, null, null, null, null, null, null],
+          ['Benchmark','<a href="ESRL-CPC_Benchmark.nc" download>[-]</a>',229.425, null, null, null, null, null, null, null, null, null],
+          ['bcc-cms1-1','<a href="ESRL-CPC_bcc-cms1-1.nc" download>[-]</a>',554.788,350.786,361.239,-18.655,0.217,0.446,0.712,0.421,0.410,0.442],
           ['CAETE','<a href="ESRL-CPC_CAETE.nc" download>[-]</a>',217.877,-36.181,120.740,-11.314,0.696,0.429,0.703,0.872,0.452,0.597],
         ]);
         var view  = new google.visualization.DataView(data);
@@ -63,6 +64,7 @@
           document.getElementById('spatial_variance').src =  RNAME + '_spatial_variance.png'
           document.getElementById('spaceint').src =  MNAME + '_' + RNAME + '_spaceint.png'
           document.getElementById('cycle').src =  MNAME + '_' + RNAME + '_cycle.png'
+          document.getElementById('compcycle').src =  RNAME + '_compcycle.png'
         }
         google.visualization.events.addListener(table, 'select', clickRow);
       table.setSelection([{'row': 0}]);
@@ -90,6 +92,7 @@
         }
         document.getElementById('legend').src = 'legend_' + PNAME + '.png'
         document.getElementById('Benchmark').src = 'Benchmark_' + RNAME + '_' + PNAME + '.png'
+        document.getElementById('bcc-cms1-1').src = 'bcc-cms1-1_' + RNAME + '_' + PNAME + '.png'
         document.getElementById('CAETE').src = 'CAETE_' + RNAME + '_' + PNAME + '.png'
       }
     </script>
@@ -194,6 +197,12 @@
               <div class="inner rotate">CYCLE</div>
               <div class="second"><img src="" id="cycle" alt="Data not available"></img></div>
         </div><br>
+        <div class="outer" id="compcycle_div">
+              <div class="inner rotate">CYCLES</div>
+              <div class="second"><img src="" id="compcycle" alt="Data not available"></img></div>
+              <div class="inner rotate"> </div>
+              <div class="second"><img src="legend_compcycle.png" id="leg"  alt="Data not available"></img></div>
+        </div><br>
       </div>
     </div>
     <div data-role="page" id="page2">
@@ -218,6 +227,10 @@
         <div class="outer" id="Benchmark_div">
               <div class="inner rotate">Benchmark</div>
               <div class="second"><img src="" id="Benchmark" alt="Data not available"></img></div>
+        </div><br>
+        <div class="outer" id="bcc-cms1-1_div">
+              <div class="inner rotate">bcc-cms1-1</div>
+              <div class="second"><img src="" id="bcc-cms1-1" alt="Data not available"></img></div>
         </div><br>
         <div class="outer" id="CAETE_div">
               <div class="inner rotate">CAETE</div>

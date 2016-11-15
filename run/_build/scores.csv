@@ -1,4 +1,4 @@
-Variables,CAETE
-Evapotranspiration,0.634551982226
-Surface Runoff ,0.617724081198
-Soil Moisture,0.596966951105
+Variables,bcc-cms1-1,CAETE
+Evapotranspiration,0.460052694613,0.634551982226
+Surface Runoff ,0.508538204248,0.617724081198
+Soil Moisture,0.442145228125,0.596966951105
